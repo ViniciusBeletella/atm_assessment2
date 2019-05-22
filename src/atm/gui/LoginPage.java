@@ -35,23 +35,31 @@ public class LoginPage extends javax.swing.JPanel {
             @Override
             public void actionPerformed(ActionEvent e) {
               
+                try {
                 AccountController  accountController = new AccountController();
-              
-                Account account = accountController.login(accountNumberText.getText(), String.valueOf(pinPassword.getPassword()));
                 
-                // Database error handling on AccountController and DB Connection.
-                if( account.getId() == 0){
-                    JOptionPane.showMessageDialog(null, "Account and pin details does not match ");
-                }else{
-                    
-                JFrame topFrame = (JFrame) SwingUtilities.getWindowAncestor(accessAccountButton);
+                if (accountNumberText.getText() != null && String.valueOf(pinPassword.getPassword()) != null) {
+                  Account account = accountController.login(accountNumberText.getText(), String.valueOf(pinPassword.getPassword()));
                 
-                topFrame.setContentPane (new MainMenuPage(account));
-                topFrame.invalidate();
-                topFrame.validate();
-               
-                
+                    // Database error handling on AccountController and DB Connection.
+                    if( account.getId() == 0){
+                        JOptionPane.showMessageDialog(null, "Account and pin details does not match ");
+                    }else{
+
+                    JFrame topFrame = (JFrame) SwingUtilities.getWindowAncestor(accessAccountButton);
+
+                    topFrame.setContentPane (new MainMenuPage(account));
+                    topFrame.invalidate();
+                    topFrame.validate();  
+                    }
+                } else {
+                        JOptionPane.showMessageDialog(null, "Please enter PIN and Account Number.");
+                        }
+
+                } catch (NullPointerException nullPointerException) {
+                    JOptionPane.showMessageDialog(null, "Please enter PIN and Account Number.");
                 }
+                
                 
             }
         });

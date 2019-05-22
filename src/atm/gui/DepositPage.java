@@ -43,7 +43,6 @@ public class DepositPage extends javax.swing.JPanel {
                         topFrame.invalidate();
                     topFrame.validate();
                     } catch (NumberFormatException numberException) {
-                        numberException.printStackTrace();
                         JOptionPane.showMessageDialog(null, "Please enter a valid number (double). ");
                     }
                 }
